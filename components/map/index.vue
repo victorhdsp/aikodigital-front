@@ -2,7 +2,7 @@
     <div id="map">
       <ClientOnly fallback-tag="span" fallback="Loading map...">
         <LMap 
-          :zoom="5" 
+          :zoom="6" 
           :center="[-15.793889, -47.882778]"
           :use-global-leaflet="false"
         >

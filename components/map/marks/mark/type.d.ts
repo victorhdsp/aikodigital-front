@@ -1,6 +1,6 @@
 export interface MarkProps {
     id: string;
     lat: number;
-    lng: number;
+    lon: number;
     title: string;
 }

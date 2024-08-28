@@ -2,7 +2,7 @@
     <main class="main">
         <Map class="map" />
         <Aside class="aside">
-            <Equipaments />
+            <!-- <Equipament /> -->
         </Aside>
     </main>
 </template>
@@ -10,10 +10,6 @@
 <script setup lang="ts">
     import Map from '@/components/map/index.vue';
     import Aside from '@/components/aside/index.vue';
-    import Equipaments from '@/components/aside/equipaments/index.vue';
-
-    const data = useStore();
-    data.fetchEquipamentList();
 </script>
 
 <style scoped lang="scss">
