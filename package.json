@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@nuxtjs/leaflet": "^1.2.2",
-    "@nuxtjs/storybook": "^8.2.0",
     "@pinia/nuxt": "^0.5.4",
     "@radix-icons/vue": "^1.0.0",
     "@vueuse/core": "^11.0.3",

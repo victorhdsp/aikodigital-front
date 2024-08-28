@@ -13,8 +13,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'shadcn-nuxt',
     'nuxt-lucide-icons',
-    '@nuxtjs/leaflet',
-    '@nuxtjs/storybook'
+    '@nuxtjs/leaflet'
   ],
   
   shadcn: {
