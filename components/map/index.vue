@@ -19,7 +19,7 @@
   import Body from "@/components/map/body/index.vue";
   import Head from "@/components/map/head/index.vue";
   import Marks from "@/components/map/marks/index.vue";
-  import Loading from "@/components/map/loading.vue";
+  import Loading from "@/components/map/loading/index.vue";
 </script>
 
 <style scoped lang="scss">
