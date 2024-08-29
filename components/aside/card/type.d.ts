@@ -1,3 +1,3 @@
 export interface CardProps {
-    id: string;
+    mark_id: string;
 }

@@ -19,7 +19,7 @@ import type { MarkProps } from './type';
 const props = defineProps<MarkProps>();
 
 const icon = L.icon({
-    iconUrl: 'http://localhost:3000/_nuxt/node_modules/leaflet/dist/images/marker-icon.png',
+    iconUrl: '/images/marker-icon.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],

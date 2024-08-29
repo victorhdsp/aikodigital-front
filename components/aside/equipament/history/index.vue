@@ -2,8 +2,8 @@
     <div class="history">
         <Card 
             v-for="item in stateHistory" 
-            :id="`${item.date.getTime()}`"
             :key="item.date.getTime()"
+            :mark_id="`${item.date.getTime()}`"
         >
             <CardHeader>
                 <CardDescription>
@@ -13,8 +13,13 @@
                             :key="state.time"
                             class="status"
                         >
-                            <div :style="`--color: ${state.color};`" class="icon" />
-                            <p>{{ state.name }}, {{ state.time }}</p>
+                            <div
+                                :style="`--color: ${state.color};`"
+                                class="icon"
+                            />
+                            <p>
+                                {{ state.name }}, {{ state.time }}
+                            </p>
                         </li>
                     </ul>
                 </CardDescription>
