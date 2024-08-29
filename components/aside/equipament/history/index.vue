@@ -25,38 +25,16 @@
 
 <script setup lang="ts">
     import type { EquipamentComplete } from "~/assets/types/equipament";
-    import { CardHeader, CardTitle } from "@/components/ui/card";
-    import type { StateHistory } from "./type";
+    import { CardHeader } from "@/components/ui/card";
     import Card from "@/components/aside/card/index.vue";
+    import { organizeStateHistory } from "./useHistory";
 
     const props = defineProps<EquipamentComplete>();
-    const bruteStateHistory: StateHistory[] = props.positionHistory.map((position, index) => {
-        const positionDate = new Date(position.date);
-
-        const filteredStates = props.stateHistory.filter((state) => {
-            const stateDate = new Date(state.date);
-            if(stateDate.getTime() < positionDate.getTime()) return false;
-            if(index + 1 < props.positionHistory.length) {
-                const nextPosition = new Date(props.positionHistory[index + 1].date);
-                if(stateDate.getTime() >= nextPosition.getTime()) return false;
-            }
-            return state;
-        });
-
-        return {
-            date: positionDate,
-            states: filteredStates.map((state) => {
-                const stateDate = new Date(state.date);
-                return {
-                    name: state.state.name,
-                    color: state.state.color,
-                    time: stateDate.toLocaleString(),
-                };
-            })
-        }
-    })
-
-    const stateHistory = bruteStateHistory.filter((state) => state.states.length > 0);
+    
+    const stateHistory =  organizeStateHistory(
+        props.stateHistory, 
+        props.positionHistory
+    );
 </script>
 
 <style scoped lang="scss">
