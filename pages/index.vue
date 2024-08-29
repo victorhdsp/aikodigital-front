@@ -12,22 +12,32 @@
     import Aside from '@/components/aside/index.vue';
     import Equipaments from '@/components/aside/equipaments/index.vue';
 
-    const data = useStore();
-    data.fetchEquipamentList();
+    const equipaments = useEquipamentsStore();
+    const marks = useMarksStore();
+
+    equipaments.fetchList().then((data) => {
+        marks.set(data.map((equipament) => ({
+            id: equipament.id,
+            lat: equipament.lat,
+            lon: equipament.lon,
+            title: equipament.name,
+        })));
+    });
+
 </script>
 
 <style scoped lang="scss">
 .main {
-    @apply grid grid-cols-5;
+    @apply grid grid-cols-8;
     @apply container;
     @apply h-screen;
     @apply p-8;
 
     .map {
-        @apply col-span-3;
+        @apply col-span-5;
     }
     .aside {
-        @apply col-span-2;
+        @apply col-span-3;
     }
 }
 </style>
