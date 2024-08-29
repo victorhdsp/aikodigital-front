@@ -1,10 +1,11 @@
 export interface EquipamentComplete {
     id: string;
-    product: string;
-    equipamentModel: {
+    name: string;
+    vehicle: {
         name: string;
+        id: string;
         hourlyEarnings: {
-            equipamentState: {
+            state: {
                 name: string;
                 color: string;
             };
@@ -16,9 +17,9 @@ export interface EquipamentComplete {
         lat: number;
         lon: number;
     }[];
-    equipamentStateHistory: {
+    stateHistory: {
         date: string;
-        equipamentState: {
+        state: {
             name: string;
             color: string;
         };
@@ -28,7 +29,10 @@ export interface EquipamentComplete {
 export interface EquipamentSimple {
     id: string;
     name: string;
-    veicule: string;
+    vehicle: {
+        name: string;
+        id: string;
+    },
     lat: number;
     lon: number;
     lastUpdate: string; //Date
