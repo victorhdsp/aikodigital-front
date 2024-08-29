@@ -24,15 +24,15 @@ const icon = L.icon({
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
-    className: [`mark_${props.id}`, "mark-equipament"].join(' '),
+    className: [`mark-item-${props.id}`, "mark-item"].join(' '),
 });
 </script>
 
 <style lang="scss">
-    .mark-equipament {
+    .mark-item {
         @apply transition;
     }
-    .mark-equipament-selected {
-        filter: drop-shadow(0 12px 6px rgb(0 0 0 / 1));
+    .mark-item-unselected {
+        @apply opacity-30;
     }
 </style>
