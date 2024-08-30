@@ -1,21 +1,21 @@
 <template>
     <div class="header">
         <h2>Equipamento: {{ props.name }}</h2>
-        <h3>Veículo: {{ props.vehicle.name }}</h3>
-        
         <div class="lastUpdate">
-            <h4>Última atualização:</h4>
-            <div class="status">
-                <div :style="`--color: ${lastStatus.state.color};`" class="icon" />
-                <p>{{ lastStatus.state.name }}</p>
-            </div>
+            <Status 
+                :name="lastStatus.state.name" 
+                :color="lastStatus.state.color"
+            />
             <p>{{ new Date(lastUpdate).toLocaleString() }}</p>
         </div>
+        <h3>Veículo: {{ props.vehicle.name }}</h3>
+        
     </div>
 </template>
 
 <script setup lang="ts">    
     import type { EquipamentComplete } from "~/assets/types/equipament";
+    import Status from "@/components/common/status/index.vue";
     const props = defineProps<EquipamentComplete>();
 
     const lastStatus = props.stateHistory[
@@ -35,15 +35,7 @@
         @apply w-full;
 
         .lastUpdate {
-            @apply flex flex-col gap-1;
-
-            .status {
-                @apply flex gap-2 items-center;
-                .icon {
-                    @apply w-2 h-2 rounded-full;
-                    background-color: var(--color);
-                }
-            }
+            @apply flex justify-between;
         }
     }
 </style>

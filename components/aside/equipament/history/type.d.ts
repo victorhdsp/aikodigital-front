@@ -5,6 +5,10 @@ export type PositionHistory = EquipamentComplete["positionHistory"];
 
 export interface OrganizedStateHistory {
     date: Date;
+    position: {
+        lat: number;
+        lon: number;
+    },
     states: {
         time: string;
         color: string;
