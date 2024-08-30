@@ -17,6 +17,6 @@
     .equipament {
         @apply flex flex-col gap-4;
         @apply w-full h-full;
-        @apply overflow-auto;
+        @apply overflow-hidden;
     }
 </style>

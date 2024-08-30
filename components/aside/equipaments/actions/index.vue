@@ -1,23 +1,23 @@
 <template>
     <CardFooter class="footer">
-        <NuxtLink :to="`/equipamento/${props.equipament_id}`">
-            <Button variant="secondary" class="flex gap-2">
-                <ScanEye />
-                <p>Ver equipamento</p>
-            </Button>
-        </NuxtLink>
-        <NuxtLink :to="`/veiculo/${props.vehicle_id}`">
-            <Button size="icon">
-                <Bus />
-            </Button>
-        </NuxtLink>
+        <Button
+            text="Ver equipamento"
+            variant="secondary"
+            :to="'/equipamento/' + props.equipament_id"
+            :icon="ScanEye"
+        />
+        <!-- <Button
+            variant="default"
+            :to="'/veiculo/' + props.vehicle_id"
+            :icon="Bus"
+        /> -->
     </CardFooter>
 </template>
 
 <script setup lang="ts">
 import type { ActionsProps } from './type';
 import { CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Button from "@/components/common/button/index.vue";
 import { ScanEye, Bus } from "lucide-vue-next"
 
 const props = defineProps<ActionsProps>();

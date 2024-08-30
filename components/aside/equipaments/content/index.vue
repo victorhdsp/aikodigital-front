@@ -5,10 +5,13 @@
             <CardDescription>{{ props.vehicle.name }}</CardDescription>
         </div>
         <div class="bottom">
+            <Status 
+                :name="props.state.name" 
+                :color="props.state.color"
+            />
             <p class="text-sm">
                 {{ new Date(props.lastUpdate).toLocaleString() }}
             </p>
-            <div :style="`--color: ${props.state.color};`" class="status" />
         </div>
     </CardHeader>
 </template>
@@ -16,6 +19,7 @@
 <script setup lang="ts">
 import type { EquipamentSimple } from '@/assets/types/equipament';
 import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Status from "@/components/common/status/index.vue";
 
 const props = defineProps<EquipamentSimple>();
 </script>
@@ -28,11 +32,6 @@ const props = defineProps<EquipamentSimple>();
         
         .bottom {
             @apply flex items-center justify-between;
-
-            .status {
-                @apply w-2 h-2 rounded-full;
-                background-color: var(--color);
-            }
         }
     }
 </style>

@@ -33,6 +33,10 @@ export function bruteStateHistory(
 
         return {
             date: positionDate,
+            position: {
+                lat: position.lat,
+                lon: position.lon,
+            },
             states: filteredStates.map((state) => {
                 const stateDate = new Date(state.date);
                 return {
@@ -51,5 +55,13 @@ export function organizeStateHistory(
 ): OrganizedStateHistory[] {
     const stateHistory = bruteStateHistory(states, positions);
 
-    return  stateHistory.filter((state) => state.states.length > 0);
+    const filteredStateHistory = stateHistory.filter((state) => {
+        return state.states.length > 0;
+    });
+
+    const ordenedStateHistory = filteredStateHistory.sort((a, b) => {
+        return b.date.getTime() - a.date.getTime();
+    });
+
+    return ordenedStateHistory;
 }

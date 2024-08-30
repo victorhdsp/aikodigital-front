@@ -1,38 +1,38 @@
 <template>
-    <div class="history">
-        <Card 
-            v-for="item in stateHistory" 
-            :key="item.date.getTime()"
-            :mark_id="`${item.date.getTime()}`"
-        >
-            <CardHeader>
-                <CardDescription>
-                    <ul class="states">
-                        <li 
-                            v-for="state in item.states"
-                            :key="state.time"
-                            class="status"
-                        >
-                            <div
-                                :style="`--color: ${state.color};`"
-                                class="icon"
-                            />
-                            <p>
-                                {{ state.name }}, {{ state.time }}
-                            </p>
-                        </li>
-                    </ul>
-                </CardDescription>
-            </CardHeader>
-        </Card>
-    </div>
+    <ScrollArea>
+        <div class="history">
+            <Card 
+                v-for="item in stateHistory" 
+                :key="item.date.getTime()"
+                :mark_id="`${item.date.getTime()}`"
+            >
+                <CardHeader>
+                    <CardDescription>
+                        <ul class="states">
+                            <li 
+                                v-for="state in item.states"
+                                :key="state.time"
+                            >
+                                <Status 
+                                    :name="`${state.name}, ${state.time}`" 
+                                    :color="state.color"
+                                />
+                            </li>
+                        </ul>
+                    </CardDescription>
+                </CardHeader>
+            </Card>
+        </div>
+    </ScrollArea>
 </template>
 
 <script setup lang="ts">
     import type { EquipamentComplete } from "~/assets/types/equipament";
     import { CardHeader } from "@/components/ui/card";
-    import Card from "@/components/aside/card/index.vue";
+    import Card from "@/components/common/aside/card/index.vue";
     import { organizeStateHistory } from "./useHistory";
+    import Status from "@/components/common/status/index.vue";
+    import ScrollArea from "@/components/common/scroll-area/index.vue";
 
     const props = defineProps<EquipamentComplete>();
     
@@ -50,15 +50,6 @@
 
         .states {
             @apply flex flex-col;
-
-            .status {
-                @apply flex items-center gap-2;
-    
-                .icon {
-                    @apply w-2 h-2 rounded-full;
-                    background-color: var(--color);
-                }
-            }
         }
     }
 </style>
