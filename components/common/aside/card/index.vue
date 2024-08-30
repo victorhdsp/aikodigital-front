@@ -16,7 +16,7 @@
     const props = defineProps<CardProps>();
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .card {
         @apply w-full;
     }

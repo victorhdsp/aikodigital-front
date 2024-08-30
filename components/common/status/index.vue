@@ -12,7 +12,7 @@
     }>();
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .status {
         @apply flex items-center gap-2;
         @apply text-sm;

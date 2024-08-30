@@ -23,7 +23,7 @@ import { ScanEye, Bus } from "lucide-vue-next"
 const props = defineProps<ActionsProps>();
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .footer {
         @apply flex items-center justify-between;
     }

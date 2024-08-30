@@ -31,6 +31,6 @@
     .equipaments {
         @apply flex flex-col gap-2;
         @apply w-full;
-        @apply p-2;
+        @apply relative;
     }
 </style>

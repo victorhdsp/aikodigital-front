@@ -24,7 +24,7 @@ import Status from "@/components/common/status/index.vue";
 const props = defineProps<EquipamentSimple>();
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .header {
         .top {
             @apply flex items-center justify-between;
