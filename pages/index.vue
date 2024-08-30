@@ -15,6 +15,7 @@
             </Marker>
         </Map>
         <Aside class="aside">
+            <Filters />
             <Equipaments />
         </Aside>
     </Layout>
@@ -22,6 +23,7 @@
 
 <script setup lang="ts">
     import Layout from '~/components/layout/default.vue';
+    import Filters from '~/components/aside/equipaments/filters/index.vue';
     import Equipaments from '@/components/aside/equipaments/index.vue';
     import Map from '@/components/common/map/index.vue';
     import Marker from '@/components/common/map/marker/index.vue';
