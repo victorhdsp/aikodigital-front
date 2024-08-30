@@ -1,53 +1,73 @@
 <template>
-    <main class="main">
-        <Map class="map" />
+    <Layout>
+        <Map class="map">
+            <Marker 
+                v-for="mark in marks"
+                :id="mark.id"
+                :key="mark.id"
+                :lat="mark.lat"
+                :lon="mark.lon"
+            >
+                <Popup v-bind="mark" />
+            </Marker>
+        </Map>
         <Aside class="aside">
             <Equipament
                 v-if="equipament.item"
                 v-bind="equipament.item"
             />
         </Aside>
-    </main>
+    </Layout>
 </template>
 
 <script setup lang="ts">
-    import Map from '@/components/map/index.vue';
-    import Aside from '@/components/aside/index.vue';
+    import Layout from '~/components/layout/default.vue';
     import Equipament from '@/components/aside/equipament/index.vue';
+    import Map from '@/components/common/map/index.vue';
+    import Marker from '@/components/common/map/marker/index.vue';
+    import Aside from '@/components/common/aside/index.vue';
+    import Popup from '~/components/map/popup/equipament/index.vue';
+    import type { MarkProps } from '~/components/map/popup/equipament/type';
+    import { organizeStateHistory } from '~/components/aside/equipament/history/useHistory';
 
     const equipament = useEquipamentStore();
-    const marks = useMarksStore();
     const route = useRoute()
     const id = route.params.id;
+    const marks = ref<MarkProps[]>();
+    const map = useMapStore();
 
     if (typeof id === 'string') {
-        equipament.fetchById(id).then((data) => {
-            const positions = data.positionHistory.map((position) => {
+        watch(equipament, ({item}) => {
+            if (!item) return;
+
+            const stateHistory =  organizeStateHistory(
+                item.stateHistory, 
+                item.positionHistory
+            );
+            
+            const positions = stateHistory.map<MarkProps>((item) => {
                 return {
-                    id: `${new Date(position.date).getTime()}`,
-                    lat: position.lat,
-                    lon: position.lon,
-                    title: position.date,
+                    id: `${new Date(item.date).getTime()}`,
+                    lat: item.position.lat,
+                    lon: item.position.lon,
+                    options: {
+                        states: item.states
+                    },
                 };
             });
+    
+            marks.value = positions;
 
-            marks.set(positions);
+            if (positions[0]) {
+                map.setCenter(positions[0].lat, positions[0].lon);
+            }
+
         });
+
+        equipament.fetchById(id)
     }
 </script>
 
 <style scoped lang="scss">
-.main {
-    @apply grid grid-cols-8;
-    @apply container;
-    @apply h-screen;
-    @apply p-8;
 
-    .map {
-        @apply col-span-5;
-    }
-    .aside {
-        @apply col-span-3;
-    }
-}
 </style>

@@ -1,43 +1,54 @@
 <template>
-    <main class="main">
-        <Map class="map" />
+    <Layout>
+        <Map
+            :c-ref="map"
+            class="map"
+        >
+            <Marker 
+                v-for="mark in marks"
+                :id="mark.id"
+                :key="mark.id"
+                :lat="mark.lat"
+                :lon="mark.lon"
+            >
+                <Popup v-bind="mark" />
+            </Marker>
+        </Map>
         <Aside class="aside">
             <Equipaments />
         </Aside>
-    </main>
+    </Layout>
 </template>
 
 <script setup lang="ts">
-    import Map from '@/components/map/index.vue';
-    import Aside from '@/components/aside/index.vue';
+    import Layout from '~/components/layout/default.vue';
     import Equipaments from '@/components/aside/equipaments/index.vue';
+    import Map from '@/components/common/map/index.vue';
+    import Marker from '@/components/common/map/marker/index.vue';
+    import Aside from '@/components/common/aside/index.vue';
+    import Popup from '~/components/map/popup/equipaments/index.vue';
+    import type { MarkProps } from '~/components/map/popup/equipaments/type';
 
+    const map = useMapStore();
     const equipaments = useEquipamentsStore();
-    const marks = useMarksStore();
+    const marks = ref<MarkProps[]>([]);
 
-    equipaments.fetchList().then((data) => {
-        marks.set(data.map((equipament) => ({
+    watch(equipaments, ({list}) => {
+        marks.value = list.map<MarkProps>((equipament) => ({
             id: equipament.id,
             lat: equipament.lat,
             lon: equipament.lon,
-            title: equipament.name,
-        })));
+            options: {
+                title: equipament.name,
+                state: equipament.state,
+                url: `/equipamento/${equipament.id}`,
+            }
+        }))
+        
+        if (list[0]) {
+            map.setCenter(list[0].lat, list[0].lon);
+        }
     });
 
+    equipaments.fetchList();
 </script>
-
-<style scoped lang="scss">
-.main {
-    @apply grid grid-cols-8;
-    @apply container;
-    @apply h-screen;
-    @apply p-8;
-
-    .map {
-        @apply col-span-5;
-    }
-    .aside {
-        @apply col-span-3;
-    }
-}
-</style>
