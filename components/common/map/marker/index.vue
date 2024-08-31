@@ -27,7 +27,10 @@ onMounted(async () => {
         iconAnchor: [12, 41],
         popupAnchor: [1, -34],
         shadowSize: [41, 41],
-        className: [`mark-item-${props.id}`, "mark-item"].join(' '),
+        className: [
+            `mark-item-${props.id}`,
+            "mark-item"
+        ].join(' '),
     });
 });
 </script>

@@ -2,7 +2,7 @@
     <ScrollArea>
         <div class="history">
             <Card 
-                v-for="item in stateHistory" 
+                v-for="item in equipament.stateHistory" 
                 :key="item.date.getTime()"
                 :mark_id="`${item.date.getTime()}`"
             >
@@ -27,19 +27,12 @@
 </template>
 
 <script setup lang="ts">
-    import type { EquipamentComplete } from "~/assets/types/equipament";
     import { CardHeader } from "@/components/ui/card";
     import Card from "@/components/common/aside/card/index.vue";
-    import { organizeStateHistory } from "./useHistory";
     import Status from "@/components/common/status/index.vue";
     import ScrollArea from "@/components/common/scroll-area/index.vue";
-
-    const props = defineProps<EquipamentComplete>();
     
-    const stateHistory =  organizeStateHistory(
-        props.stateHistory, 
-        props.positionHistory
-    );
+    const equipament = useEquipamentStore();
 </script>
 
 <style scoped lang="scss">

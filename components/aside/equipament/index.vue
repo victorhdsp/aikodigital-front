@@ -1,16 +1,20 @@
 <template>
     <div class="equipament">
-        <Header v-bind="props" />
-        <History v-bind="props" />
+        <Header
+            v-if="equipament.item"
+            v-bind="equipament.item"
+        />
+        <Filters />
+        <History />
     </div>
 </template>
 
 <script setup lang="ts">    
-    import type { EquipamentComplete } from "~/assets/types/equipament";
     import Header from "@/components/aside/equipament/header/index.vue";
     import History from "@/components/aside/equipament/history/index.vue";
+    import Filters from "@/components/aside/equipament/filters/index.vue";
 
-    const props = defineProps<EquipamentComplete>();
+    const equipament = useEquipamentStore();
 </script>
 
 <style scoped lang="scss">
