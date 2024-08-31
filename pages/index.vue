@@ -52,5 +52,7 @@
         }
     });
 
-    equipaments.fetchList();
+    onMounted(() => {
+        equipaments.fetchList();
+    });
 </script>

@@ -12,10 +12,7 @@
             </Marker>
         </Map>
         <Aside class="aside">
-            <Equipament
-                v-if="equipament.item"
-                v-bind="equipament.item"
-            />
+            <Equipament />
         </Aside>
     </Layout>
 </template>
@@ -28,44 +25,39 @@
     import Aside from '@/components/common/aside/index.vue';
     import Popup from '~/components/map/popup/equipament/index.vue';
     import type { MarkProps } from '~/components/map/popup/equipament/type';
-    import { organizeStateHistory } from '~/components/aside/equipament/history/useHistory';
 
     const equipament = useEquipamentStore();
     const route = useRoute()
+
     const id = route.params.id;
     const marks = ref<MarkProps[]>();
+
     const map = useMapStore();
 
-    if (typeof id === 'string') {
-        watch(equipament, ({item}) => {
-            if (!item) return;
-
-            const stateHistory =  organizeStateHistory(
-                item.stateHistory, 
-                item.positionHistory
-            );
-            
-            const positions = stateHistory.map<MarkProps>((item) => {
-                return {
-                    id: `${new Date(item.date).getTime()}`,
-                    lat: item.position.lat,
-                    lon: item.position.lon,
-                    options: {
-                        states: item.states
-                    },
-                };
-            });
-    
-            marks.value = positions;
-
-            if (positions[0]) {
-                map.setCenter(positions[0].lat, positions[0].lon);
-            }
-
+    watch(equipament, ({stateHistory}) => {
+        const positions = stateHistory.map<MarkProps>((item) => {
+            return {
+                id: `${new Date(item.date).getTime()}`,
+                lat: item.position.lat,
+                lon: item.position.lon,
+                options: {
+                    states: item.states
+                },
+            };
         });
 
-        equipament.fetchById(id)
-    }
+        marks.value = positions;
+
+        if (positions[0]) {
+            map.setCenter(positions[0].lat, positions[0].lon);
+        }
+    });
+
+    onMounted(() => {
+        if (typeof id === 'string') {
+            equipament.fetchById(id);
+        }
+    });
 </script>
 
 <style scoped lang="scss">

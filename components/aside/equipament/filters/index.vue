@@ -10,15 +10,15 @@
     import SelectByStatus from "~/components/common/aside/filters/select-by-status/index.vue";
 
     const search = ref<string>("");
-    const useEquipaments = useEquipamentsStore();
+    const useEquipament = useEquipamentStore();
 
     function handleSearch(event: Event) {
         search.value = (event.target as HTMLInputElement).value;
-        useEquipaments.filterBySearch(search.value);
+        useEquipament.filterBySearch(search.value);
     }
 
     function handleStatusChange(status: string) {
-        useEquipaments.filterByStatus(status === "all" ? "" : status);
+        useEquipament.filterByStatus(status === "all" ? "" : status);
     }
 </script>
 

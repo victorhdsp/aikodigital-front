@@ -5,7 +5,7 @@
             type="text"
             placeholder="Pesquisar..."
             class="input"
-            :oninput="props.oninput"
+            @input="props.oninput"
         />
         <Search
             class="icon"
