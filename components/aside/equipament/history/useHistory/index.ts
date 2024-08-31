@@ -1,21 +1,21 @@
-import type { OrganizedStateHistory, PositionHistory, StateHistory } from "./type";
+import type { OrganizedStateHistory, PositionHistory, StateHistory } from "@/assets/types/equipament";
 
 export function filterStatesByDate(
-    states: StateHistory, 
-    positions: PositionHistory, 
+    states: StateHistory[], 
+    positions: PositionHistory[], 
     index: number
-): StateHistory {
+): StateHistory[] {
     return states.filter((state) => {
-        const stateDate = new Date(state.date);
         const positionDate = new Date(positions[index].date);
-
-        if(stateDate.getTime() < positionDate.getTime()) {
+        const stateDate = new Date(state.date);
+        
+        if(stateDate.getTime() > positionDate.getTime()) {
             return false;
         }
         if(index + 1 < positions.length) {
             const nextPosition = new Date(positions[index + 1].date);
 
-            if(stateDate.getTime() >= nextPosition.getTime()) {
+            if(stateDate.getTime() <= nextPosition.getTime()) {
                 return false;
             }
         }
@@ -24,13 +24,13 @@ export function filterStatesByDate(
 }
 
 export function bruteStateHistory(
-    states: StateHistory, 
-    positions: PositionHistory
+    states: StateHistory[], 
+    positions: PositionHistory[]
 ): OrganizedStateHistory[] {
     return positions.map((position, index) => {
         const positionDate = new Date(position.date);
         const filteredStates = filterStatesByDate(states, positions, index);
-
+        
         return {
             date: positionDate,
             position: {
@@ -50,13 +50,13 @@ export function bruteStateHistory(
 }
 
 export function organizeStateHistory(
-    states: StateHistory, 
-    positions: PositionHistory
+    states: StateHistory[],
+    positions: PositionHistory[]
 ): OrganizedStateHistory[] {
     const stateHistory = bruteStateHistory(states, positions);
 
-    const filteredStateHistory = stateHistory.filter((state) => {
-        return state.states.length > 0;
+    const filteredStateHistory = stateHistory.filter((item) => {
+        return item.states.length > 0;
     });
 
     const ordenedStateHistory = filteredStateHistory.sort((a, b) => {
