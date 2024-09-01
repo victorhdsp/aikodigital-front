@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createTestingPinia, type TestingPinia } from "@pinia/testing";
-import { mockData } from "@/tests/__mock__/equipament.js"
+import { mockEquipamentData } from "@/tests/__mock__/equipament.js"
 import Equipament from "./index.vue";
 
 describe("components/aside/equipament", () => {
@@ -11,7 +11,7 @@ describe("components/aside/equipament", () => {
       createSpy: vi.fn(),
     });
     const equipamentStore = useEquipamentStore();
-    equipamentStore.item = mockData;
+    equipamentStore.item = mockEquipamentData;
   });
   
   test("renders correctly", async () => {

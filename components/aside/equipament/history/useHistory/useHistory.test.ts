@@ -1,11 +1,11 @@
 import { describe, test, expect } from "vitest";
 import { organizeStateHistory, filterStatesByDate, bruteStateHistory } from "./index";
-import { mockData } from "~/tests/__mock__/equipament.js";
+import { mockEquipamentData } from "~/tests/__mock__/equipament.js";
 
 describe("components/aside/equipament/history/useHistory", () => {
     test("filterStatesByDate", () => {
-        const states = mockData.stateHistory;
-        const positions = mockData.positionHistory;
+        const states = mockEquipamentData.stateHistory;
+        const positions = mockEquipamentData.positionHistory;
         const index = 0;
         const result = filterStatesByDate(states, positions, index);
         
@@ -13,8 +13,8 @@ describe("components/aside/equipament/history/useHistory", () => {
     });
 
     test("bruteStateHistory", () => {
-        const states = mockData.stateHistory;
-        const positions = mockData.positionHistory;
+        const states = mockEquipamentData.stateHistory;
+        const positions = mockEquipamentData.positionHistory;
         const result = bruteStateHistory(states, positions);
         
         expect(result).toEqual([
@@ -34,13 +34,11 @@ describe("components/aside/equipament/history/useHistory", () => {
                 },
                 states: [
                     {
-                        color: "#e74c3c",
-                        name: "Manutenção",
+                        id: "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f",
                         time: "2/1/2021, 12:00:00 AM"
                     },
                     {
-                        color: "#2ecc71",
-                        name: "Operando",
+                        id: "0808344c-454b-4c36-89e8-d7687e692d57",
                         time: "2/1/2021, 2:00:00 AM"
                     }
                 ]
@@ -49,8 +47,8 @@ describe("components/aside/equipament/history/useHistory", () => {
     });
 
     test("organizeStateHistory", () => {
-        const states = mockData.stateHistory;
-        const positions = mockData.positionHistory;
+        const states = mockEquipamentData.stateHistory;
+        const positions = mockEquipamentData.positionHistory;
         const result = organizeStateHistory(states, positions);
         
         expect(result).toEqual([{
@@ -61,13 +59,11 @@ describe("components/aside/equipament/history/useHistory", () => {
             },
             states: [
                 {
-                    color: "#e74c3c",
-                    name: "Manutenção",
+                    id: "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f",
                     time: "2/1/2021, 12:00:00 AM"
                 },
                 {
-                    color: "#2ecc71",
-                    name: "Operando",
+                    id: "0808344c-454b-4c36-89e8-d7687e692d57",
                     time: "2/1/2021, 2:00:00 AM"
                 }
             ]

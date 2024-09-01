@@ -1,14 +1,14 @@
 import { describe, test, expect } from "vitest";
 import { mountSuspended } from "@nuxt/test-utils/runtime";
-import { mockData } from "@/tests/__mock__/equipaments.js"
+import { mockEquipamentsData } from "@/tests/__mock__/equipaments.js"
 import Actions from "./index.vue";
 
 describe("components/aside/equipaments/actions", () => {
   test("renders correctly", async () => {
     const wrapper = await mountSuspended(Actions, {
       props: {
-        equipament_id: mockData[0].id,
-        vehicle_id: mockData[0].vehicle.id,
+        equipament_id: mockEquipamentsData[0].id,
+        vehicle_id: mockEquipamentsData[0].vehicle.id,
       }
     });
     
