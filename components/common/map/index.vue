@@ -3,10 +3,11 @@
       <ClientOnly>
         <template #default>
           <LMap 
-            :zoom="6"
+            :zoom="zoom"
             :center="map.center"
             :use-global-leaflet="true"
-            @ready="(_map) => _map.setView(map.center, 6)"
+            @ready="ready"
+            @update:center="update"
           >
             <Head />
             <slot />
@@ -26,6 +27,15 @@
   import Loading from "@/components/common/loading/index.vue";
   
   const map = useMapStore();
+  const zoom = 10;
+
+  function ready (useMap: typeof LMap) {
+    useMap.setView(map.center, zoom);
+    map.bounce ++;
+  }
+  function update () {
+    map.bounce ++;
+  }
 </script>
 
 <style scoped lang="scss">
