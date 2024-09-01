@@ -16,9 +16,10 @@ describe("useEquipament", () => {
         const lastData = getLastData(mockEquipamentData);
 
         expect(lastData).toEqual({
-            lastUpdate: "2/1/2021, 12:00:00 AM",
-            lastStatus: mockEquipamentData.stateHistory[0],
-            lastPosition: mockEquipamentData.positionHistory[0]
+            lastStatus: {
+                state: mockEquipamentData.stateHistory[0].state,
+                date: "2/1/2021, 12:00:00 AM"
+            }
         });
     });
 

@@ -9,7 +9,10 @@ describe("components/aside/equipament/history/useHistory", () => {
         const index = 0;
         const result = filterStatesByDate(states, positions, index);
         
-        expect(result).toEqual([]);
+        expect(result).toEqual([{
+            state: "baff9783-84e8-4e01-874b-6fd743b875ad",
+            date: "2021-02-01T07:00:00.000Z"
+        }]);
     });
 
     test("bruteStateHistory", () => {
@@ -24,7 +27,10 @@ describe("components/aside/equipament/history/useHistory", () => {
                     lat: -19.126536,
                     lon: -45.947756
                 },
-                states: []
+                states: [{
+                    id: "baff9783-84e8-4e01-874b-6fd743b875ad",
+                    time: "2/1/2021, 4:00:00 AM"
+                }]
             },
             {
                 date: new Date("2021-02-01T05:00:00.000Z"),
@@ -32,16 +38,7 @@ describe("components/aside/equipament/history/useHistory", () => {
                     lat: -19.126536,
                     lon: -45.947756
                 },
-                states: [
-                    {
-                        id: "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f",
-                        time: "2/1/2021, 12:00:00 AM"
-                    },
-                    {
-                        id: "0808344c-454b-4c36-89e8-d7687e692d57",
-                        time: "2/1/2021, 2:00:00 AM"
-                    }
-                ]
+                states: []
             }
         ]);
     });
@@ -52,19 +49,15 @@ describe("components/aside/equipament/history/useHistory", () => {
         const result = organizeStateHistory(states, positions);
         
         expect(result).toEqual([{
-            date: new Date("2021-02-01T05:00:00.000Z"),
+            date: new Date("2021-02-01T03:00:00.000Z"),
             position: {
                 lat: -19.126536,
                 lon: -45.947756
             },
             states: [
                 {
-                    id: "03b2d446-e3ba-4c82-8dc2-a5611fea6e1f",
-                    time: "2/1/2021, 12:00:00 AM"
-                },
-                {
-                    id: "0808344c-454b-4c36-89e8-d7687e692d57",
-                    time: "2/1/2021, 2:00:00 AM"
+                    id: "baff9783-84e8-4e01-874b-6fd743b875ad",
+                    time: "2/1/2021, 4:00:00 AM"
                 }
             ]
         }]);
