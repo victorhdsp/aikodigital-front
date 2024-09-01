@@ -1,5 +1,6 @@
 <template>
     <LMarker
+        v-if="props.id"
         :icon="icon"
         :lat-lng="[props.lat, props.lon]"
     >
@@ -32,6 +33,9 @@ onMounted(async () => {
             "mark-item"
         ].join(' '),
     });
+
+    const map = useMapStore();
+    map.bounce ++;
 });
 </script>
 

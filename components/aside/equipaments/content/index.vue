@@ -5,12 +5,9 @@
             <CardDescription>{{ props.vehicle.name }}</CardDescription>
         </div>
         <div class="bottom">
-            <Status 
-                :name="props.state.name" 
-                :color="props.state.color"
-            />
+            <Status :id="props.state"/>
             <p class="text-sm">
-                {{ new Date(props.lastUpdate).toLocaleString() }}
+                {{ new Date(props.lastUpdateDate).toLocaleString() }}
             </p>
         </div>
     </CardHeader>

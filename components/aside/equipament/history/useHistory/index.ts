@@ -19,7 +19,7 @@ export function filterStatesByDate(
                 return false;
             }
         }
-        return state;
+        return true;
     });
 }
 
@@ -37,11 +37,10 @@ export function bruteStateHistory(
                 lat: position.lat,
                 lon: position.lon,
             },
-            states: filteredStates.map((state) => {
-                const stateDate = new Date(state.date);
+            states: filteredStates.map((filtered) => {
+                const stateDate = new Date(filtered.date);
                 return {
-                    name: state.state.name,
-                    color: state.state.color,
+                    id: filtered.state,
                     time: stateDate.toLocaleString(),
                 };
             })
@@ -54,7 +53,6 @@ export function organizeStateHistory(
     positions: PositionHistory[]
 ): OrganizedStateHistory[] {
     const stateHistory = bruteStateHistory(states, positions);
-
     const filteredStateHistory = stateHistory.filter((item) => {
         return item.states.length > 0;
     });

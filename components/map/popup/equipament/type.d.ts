@@ -1,7 +1,6 @@
 interface MarkOptions {
     states: {
-        color: string;
-        name: string;
+        id: string;
         time: string;
     }[];
 }

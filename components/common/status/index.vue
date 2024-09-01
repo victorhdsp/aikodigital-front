@@ -1,15 +1,19 @@
 <template>
-    <div class="status">
-        <div :style="`--color: ${props.color};`" class="icon" />
-        <p>{{ props.name }}</p>
+    <div v-if="state" class="status">
+        <div :style="`--color: ${state.color};`" class="icon" />
+        <p>{{ state.name }}</p>
+        <p v-if="props.date">- {{ props.date }}</p>
     </div>
 </template>
 
 <script setup lang="ts">
     const props = defineProps<{
-        name: string;
-        color: string;
+        id:string,
+        date?:string
     }>();
+
+    const { ui } = useApplicationStore();
+    const state = ref(ui.states[props.id]);
 </script>
 
 <style scoped lang="scss">

@@ -13,10 +13,7 @@
                                 v-for="state in item.states"
                                 :key="state.time"
                             >
-                                <Status 
-                                    :name="`${state.name}, ${state.time}`" 
-                                    :color="state.color"
-                                />
+                                <Status :id="state.id" :date="state.time"/>
                             </li>
                         </ul>
                     </CardDescription>

@@ -1,13 +1,8 @@
 <template>
     <div class="body">
-        <Header />
         <NuxtPage/>
     </div>
 </template>
-
-<script setup lang="ts">
-    import Header from '~/components/header/index.vue';
-</script>
 
 <style lang="scss" scoped>
     .body {
@@ -15,6 +10,11 @@
         @apply w-full h-screen;
         @apply relative;
         @apply bg-gray-50;
-        @apply p-8;
+    }
+
+    @media screen and (max-width: 768px) {
+        .body {
+            @apply h-auto;
+        }
     }
 </style>

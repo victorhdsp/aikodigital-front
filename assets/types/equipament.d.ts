@@ -6,10 +6,7 @@ export interface PositionHistory {
 
 export interface StateHistory {
     date: string;
-    state: {
-        name: string;
-        color: string;
-    };
+    state: string;
 }
 
 export interface EquipamentComplete {
@@ -19,10 +16,7 @@ export interface EquipamentComplete {
         name: string;
         id: string;
         hourlyEarnings: {
-            state: {
-                name: string;
-                color: string;
-            };
+            state: string;
             value: number;
         }[];
     };
@@ -39,11 +33,8 @@ export interface EquipamentSimple {
     },
     lat: number;
     lon: number;
-    lastUpdate: string; //Date
-    state: {
-        name: string;
-        color: string;
-    };
+    lastUpdateDate: string;
+    state: string;
 }
 
 export interface OrganizedStateHistory {
@@ -54,7 +45,6 @@ export interface OrganizedStateHistory {
     },
     states: {
         time: string;
-        color: string;
-        name: string;
+        id: string;
     }[];
 }

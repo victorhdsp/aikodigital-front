@@ -1,5 +1,11 @@
 import type { EquipamentComplete, StateHistory } from "~/assets/types/equipament";
 
+const library = {
+    operating: '0808344c-454b-4c36-89e8-d7687e692d57',
+    stopped: 'baff9783-84e8-4e01-874b-6fd743b875ad',
+    maintenance: '03b2d446-e3ba-4c82-8dc2-a5611fea6e1f' 
+}
+
 function getTime (date: string) {
     return new Date(date).getTime();
 }
@@ -18,7 +24,7 @@ export function getHoursByStates (state: string, history: StateHistory[]) {
 
     ordernedHistory.forEach((item) => {
         const date = new Date(item.date).getTime();
-        if (item.state.name === state) {
+        if (item.state === state) {
             lastOperatingDate = date;
         } else {
             if (lastOperatingDate) {
@@ -32,22 +38,19 @@ export function getHoursByStates (state: string, history: StateHistory[]) {
 }
 
 export function getLastData (props: EquipamentComplete) {
-    const lastStatus = props.stateHistory[0];
-    const lastPosition = props.positionHistory[0];
-    const lastUpdateDate = lastStatus.date > lastPosition.date ? lastStatus.date : lastPosition.date;
-    const lastUpdate = new Date(lastUpdateDate).toLocaleString();
-
-    return {
-        lastUpdate,
-        lastStatus,
-        lastPosition
+    const lastStatusDate = new Date(props.stateHistory[0].date);
+    const lastStatus = {
+        state: props.stateHistory[0].state,
+        date: lastStatusDate.toLocaleString()
     };
+
+    return { lastStatus };
 }
 
 export function getProductivity (props: EquipamentComplete) {
     const { stateHistory } = props;
 
-    const operatingHours = msToHours(getHoursByStates('Operando', stateHistory));
+    const operatingHours = msToHours(getHoursByStates(library.operating, stateHistory));
     const firstTime = getTime(stateHistory[0].date);
     const lastTime = getTime(stateHistory.reverse()[0].date);
     const allTimeHours = msToHours(lastTime - firstTime);
@@ -65,9 +68,9 @@ export function getProfitByEquipament (props: EquipamentComplete) {
         maintenance: vehicle.hourlyEarnings[2].value
     };
     const times = {
-        operating: msToHours(getHoursByStates('Operando', stateHistory)),
-        stopped: msToHours(getHoursByStates('Parado', stateHistory)),
-        maintenance: msToHours(getHoursByStates('Manutenção', stateHistory))
+        operating: msToHours(getHoursByStates(library.operating, stateHistory)),
+        stopped: msToHours(getHoursByStates(library.stopped, stateHistory)),
+        maintenance: msToHours(getHoursByStates(library.maintenance, stateHistory))
     };
 
     const operating = values.operating * times.operating;

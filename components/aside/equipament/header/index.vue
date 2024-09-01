@@ -1,13 +1,16 @@
 <template>
     <div class="header">
-        <h2>Equipamento: {{ props.name }}</h2>
-        <Status 
-            :name="`${lastStatus.state.name}, ${lastUpdate}`" 
-            :color="lastStatus.state.color"
-        />
-        <h3>Veículo: {{ props.vehicle.name }}</h3>
-        <p>Produtividade geral: {{ productivity }}%</p>
-        <p>Lucro: R$ {{ price }}</p>
+        <span class="top">
+            <div>
+                <h2>{{ props.name }}</h2>
+                <p>{{ props.vehicle.name }}</p>
+            </div>
+            <div>
+                <p>Produtividade: {{ productivity }}%</p>
+                <h3>Lucro: R$ {{ price }}</h3>
+            </div>
+        </span>
+        <Status :id="lastStatus.state" :date="lastStatus.date"/>
     </div>
 </template>
 
@@ -17,7 +20,7 @@
     import Status from "@/components/common/status/index.vue";
     
     const props = defineProps<EquipamentComplete>();
-    const { lastStatus, lastUpdate } = getLastData(props);
+    const { lastStatus } = getLastData(props);
 
     const { productivity } = getProductivity(props);
     const { profit, cost } = getProfitByEquipament(props);
@@ -27,7 +30,16 @@
 
 <style scoped lang="scss">
     .header {
-        @apply flex flex-col items-center gap-2;
+        @apply flex flex-col gap-2;
         @apply w-full;
+
+        .top {
+            @apply flex justify-between items-center;
+            @apply w-full;
+
+            h2, h3, p {
+                @apply text-base;
+            }
+        }
     }
 </style>

@@ -7,7 +7,6 @@
             :center="map.center"
             :use-global-leaflet="true"
             @ready="ready"
-            @update:center="update"
           >
             <Head />
             <slot />
@@ -31,15 +30,11 @@
 
   function ready (useMap: typeof LMap) {
     useMap.setView(map.center, zoom);
-    map.bounce ++;
-  }
-  function update () {
-    map.bounce ++;
   }
 </script>
 
 <style scoped lang="scss">
 #map {
-    @apply w-full h-full;
+    @apply flex;
 }
 </style>

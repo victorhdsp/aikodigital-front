@@ -1,9 +1,6 @@
 interface MarkOptions {
     title: string;
-    state: {
-        color: string;
-        name: string;
-    };
+    state: string;
     url: string;
 }
 

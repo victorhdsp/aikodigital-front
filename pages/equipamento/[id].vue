@@ -1,5 +1,9 @@
 <template>
-    <Layout>
+    <main id="main">
+        <Header class="header" />
+        <Aside class="aside">
+            <Equipament />
+        </Aside>
         <Map class="map">
             <Marker 
                 v-for="mark in marks"
@@ -11,14 +15,10 @@
                 <Popup v-bind="mark" />
             </Marker>
         </Map>
-        <Aside class="aside">
-            <Equipament />
-        </Aside>
-    </Layout>
+    </main>
 </template>
 
 <script setup lang="ts">
-    import Layout from '~/components/layout/default.vue';
     import Equipament from '@/components/aside/equipament/index.vue';
     import Map from '@/components/common/map/index.vue';
     import Marker from '@/components/common/map/marker/index.vue';
@@ -45,7 +45,7 @@
                 },
             };
         });
-
+        
         marks.value = positions;
 
         if (positions[0]) {
@@ -61,5 +61,37 @@
 </script>
 
 <style scoped lang="scss">
+    #main {
+        @apply grid grid-cols-3 grid-rows-[auto,1fr];
+        @apply h-screen;
 
+        .header {
+            @apply col-span-1;
+        }
+        .aside {
+            @apply col-span-1;
+            @apply col-start-1;
+        }
+        .map {
+            @apply col-span-2 row-span-2;
+            @apply col-start-2 row-start-1;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        #main {
+            @apply grid-cols-1 grid-rows-[auto,30vh,1fr];
+
+            .header {
+                @apply col-span-1;
+            }
+            .aside {
+                @apply col-span-1;
+            }
+            .map {
+                @apply col-span-1 row-span-1;
+                @apply row-start-2;
+            }
+        }
+    }
 </style>

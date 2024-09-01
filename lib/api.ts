@@ -20,12 +20,6 @@ function getEquipamentModelById(id: string) {
     return model;
 }
 
-function getEquipamentStateById(id: string) {
-    const state = EquipamentStateData.find((state) => state.id === id);
-    if (!state) throw new Error('State not found');
-    return state;
-}
-
 function getEquipamentStateHistoryById(id: string) {
     const state = EquipamentStateHistoryData.find((state) => state.equipmentId === id);
     if (!state) throw new Error('State not found');
@@ -49,7 +43,6 @@ export async function getEquipamentList(): Promise<EquipamentSimple[]> {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         })[0];
         const lastStateDate = new Date(lastState.date);
-        const state = getEquipamentStateById(lastState.equipmentStateId);
         
         const positionHistory = getEquipamentPositionHistoryById(data.id);
         const lastPosition = positionHistory.positions.sort((a, b) => {
@@ -57,7 +50,7 @@ export async function getEquipamentList(): Promise<EquipamentSimple[]> {
         })[0];
         const lastPositionDate = new Date(lastPosition.date);
 
-        const lastUpdate = lastPositionDate > lastStateDate ? lastPositionDate : lastStateDate;
+        const lastUpdateDate = lastPositionDate > lastStateDate ? lastPositionDate : lastStateDate;
         
         equipaments.push({
             id: data.id,
@@ -66,13 +59,10 @@ export async function getEquipamentList(): Promise<EquipamentSimple[]> {
                 name: vahicle.name,
                 id: vahicle.id,
             },
-            state: {
-                name: state.name,
-                color: state.color,
-            },
+            state: lastState.equipmentStateId,
             lat: lastPosition.lat,
             lon: lastPosition.lon,
-            lastUpdate: lastUpdate.toISOString(),
+            lastUpdateDate: lastUpdateDate.toISOString(),
         });
     });
     
@@ -99,29 +89,21 @@ export async function getEquipament(id: string): Promise<EquipamentComplete> {
         vehicle: {
             id: vehicle.id,
             name: vehicle.name,
-            hourlyEarnings: vehicle.hourlyEarnings.map((earning) => {
-                const state = getEquipamentStateById(earning.equipmentStateId);
-                return {
-                    state: {
-                        name: state.name,
-                        color: state.color,
-                    },
-                    value: earning.value,
-                };
-            }),
+            hourlyEarnings: vehicle.hourlyEarnings.map((earning) => ({
+                state: earning.equipmentStateId,
+                value: earning.value,
+            })),
         },
         positionHistory: ordenedPositionHistory,
-        stateHistory: ordenedStateHistory.map((state) => {
-            const stateData = getEquipamentStateById(state.equipmentStateId);
-            return {
-                state: {
-                    name: stateData.name,
-                    color: stateData.color,
-                },
-                date: state.date,
-            };
-        })
+        stateHistory: ordenedStateHistory.map((state) => ({
+            state: state.equipmentStateId,
+            date: state.date,
+        }))
     };
 
     return equipament;
+}
+
+export async function fetchEquipamentStates() {
+    return EquipamentStateData;
 }

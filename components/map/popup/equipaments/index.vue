@@ -4,8 +4,7 @@
             {{ props.options.title }}
         </p>
         <Status
-            :name="props.options.state.name"
-            :color="props.options.state.color"
+            :id="props.options.state"
         />
         <Button
             text="Ver"

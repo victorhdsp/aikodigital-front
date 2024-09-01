@@ -1,16 +1,25 @@
+<template>
+    <span/>
+</template>
 <script setup lang="ts">
+    const hue: { id:string, hue:string }[] = []
+    
+    const equipaments = useEquipamentsStore();
+    const length = equipaments.list.length;
+    equipaments.list.forEach((equipament, index) => {
+        hue.push({
+            id: equipament.id,
+            hue: `hue-rotate(${(360/length) * index}deg)`
+        });
+    });
+    
     const map = useMapStore();
-
-    function activeEffect() {
-        if (map.bounce) {
-            const marks = document.querySelectorAll<HTMLImageElement>(".mark-item");
-
-            marks.forEach((mark, index) => {
-                const percent = (360/marks.length) * index;
-                mark.style.filter = `hue-rotate(${percent}deg)`;
-            });
-        }
-    }
-
-    watch(map, () => activeEffect());
+    
+    watch(map, () => {
+        hue.forEach((item) => {
+            const className = `.mark-item-${item.id}`;
+            const element = document.querySelector<HTMLElement>(className);
+            if (element) element.style.filter = item.hue;
+        });
+    });
 </script>

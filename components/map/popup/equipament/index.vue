@@ -2,9 +2,9 @@
     <LPopup class="marker-popup">
         <Status
             v-for="state, index in props.options.states"
-            :key="`${props.id}-${state.name}-${index}`"
-            :name="`${state.name}, ${state.time}`"
-            :color="state.color"
+            :id="state.id"
+            :key="`${props.id}-${index}`"
+            :data="state.time"
         />
     </LPopup>
 </template>
