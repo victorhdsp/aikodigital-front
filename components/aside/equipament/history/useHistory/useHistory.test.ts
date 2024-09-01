@@ -37,6 +37,11 @@ describe("components/aside/equipament/history/useHistory", () => {
                         color: "#e74c3c",
                         name: "Manutenção",
                         time: "2/1/2021, 12:00:00 AM"
+                    },
+                    {
+                        color: "#2ecc71",
+                        name: "Operando",
+                        time: "2/1/2021, 2:00:00 AM"
                     }
                 ]
             }
@@ -59,6 +64,11 @@ describe("components/aside/equipament/history/useHistory", () => {
                     color: "#e74c3c",
                     name: "Manutenção",
                     time: "2/1/2021, 12:00:00 AM"
+                },
+                {
+                    color: "#2ecc71",
+                    name: "Operando",
+                    time: "2/1/2021, 2:00:00 AM"
                 }
             ]
         }]);

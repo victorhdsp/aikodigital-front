@@ -7,7 +7,7 @@
         />
         <h3>Veículo: {{ props.vehicle.name }}</h3>
         <p>Produtividade geral: {{ productivity }}%</p>
-        <p>Lucro: R$ {{ profit }} | Custo: R$ {{ cost }}</p>
+        <p>Lucro: R$ {{ price }}</p>
     </div>
 </template>
 
@@ -21,6 +21,8 @@
 
     const { productivity } = getProductivity(props);
     const { profit, cost } = getProfitByEquipament(props);
+    
+    const price = (profit - cost).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 </script>
 
 <style scoped lang="scss">

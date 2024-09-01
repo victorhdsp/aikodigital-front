@@ -10,8 +10,8 @@ describe("components/aside/equipament/header", () => {
     const equipament = "Equipamento: CA-0001";
     const status = "Manutenção, 2/1/2021, 12:00:00 AM";
     const vehicle = "Veículo: Caminhão de carga";
-    const productivity = "Produtividade geral: 0%";
-    const profit = "Lucro: R$ 0 | Custo: R$ -20";
+    const productivity = "Produtividade geral: 50%";
+    const profit = "Lucro: R$ 200 | Custo: R$ -40";
 
     // expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.text()).toContain(equipament);

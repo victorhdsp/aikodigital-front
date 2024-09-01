@@ -1,20 +1,33 @@
-import type { EquipamentComplete } from "~/assets/types/equipament";
+import type { EquipamentComplete, StateHistory } from "~/assets/types/equipament";
 
-function getStateHours (state: string, history: EquipamentComplete["stateHistory"]) {
+function getTime (date: string) {
+    return new Date(date).getTime();
+}
+
+function msToHours (ms: number) {
+    return ms / 1000 / 60 / 60;
+}
+
+export function getHoursByStates (state: string, history: StateHistory[]) {
     let productiveTime = 0;
     let lastOperatingDate: number|null = null;
 
-    history.forEach((item) => {
+    const ordernedHistory = history.sort((a, b) => {
+        return getTime(a.date) - getTime(b.date);
+    });
+
+    ordernedHistory.forEach((item) => {
         const date = new Date(item.date).getTime();
         if (item.state.name === state) {
             lastOperatingDate = date;
         } else {
             if (lastOperatingDate) {
-                productiveTime += lastOperatingDate - date;
+                productiveTime += date - lastOperatingDate;
                 lastOperatingDate = null;
             }
         }
     })
+    
     return productiveTime;
 }
 
@@ -32,11 +45,14 @@ export function getLastData (props: EquipamentComplete) {
 }
 
 export function getProductivity (props: EquipamentComplete) {
-    const getTime = (date: string) => new Date(date).getTime();
     const { stateHistory } = props;
-    const productiveTime = getStateHours('Operando', stateHistory);
-    const allTime = getTime(stateHistory[0].date) - getTime(stateHistory.reverse()[0].date);
-    const productivity = ((productiveTime / allTime) * 100).toFixed(0);
+
+    const operatingHours = msToHours(getHoursByStates('Operando', stateHistory));
+    const firstTime = getTime(stateHistory[0].date);
+    const lastTime = getTime(stateHistory.reverse()[0].date);
+    const allTimeHours = msToHours(lastTime - firstTime);
+
+    const productivity = ((operatingHours / allTimeHours) * 100).toFixed(0);
 
     return { productivity };
 }
@@ -49,13 +65,17 @@ export function getProfitByEquipament (props: EquipamentComplete) {
         maintenance: vehicle.hourlyEarnings[2].value
     };
     const times = {
-        operating: getStateHours('Operando', stateHistory) / 1000 / 60 / 60,
-        stopped: getStateHours('Parado', stateHistory) / 1000 / 60 / 60,
-        maintenance: getStateHours('Manutenção', stateHistory) / 1000 / 60 / 60
+        operating: msToHours(getHoursByStates('Operando', stateHistory)),
+        stopped: msToHours(getHoursByStates('Parado', stateHistory)),
+        maintenance: msToHours(getHoursByStates('Manutenção', stateHistory))
     };
 
+    const operating = values.operating * times.operating;
+    const stopped = values.stopped * times.stopped;
+    const maintenance = values.maintenance * times.maintenance;
+    
     return {
-        profit: values.operating * times.operating,
-        cost: values.stopped * times.stopped + values.maintenance * times.maintenance
+        profit: operating,
+        cost: stopped + maintenance
     };
 }
