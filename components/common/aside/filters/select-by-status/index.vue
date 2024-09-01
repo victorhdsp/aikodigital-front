@@ -5,17 +5,12 @@
                 <SelectValue placeholder="Status" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="all">
-                    <Status name="Todos" color="#black" />
-                </SelectItem>
-                <SelectItem value="operando">
-                    <Status name="Operando" color="#2ecc71" />
-                </SelectItem>
-                <SelectItem value="parado">
-                    <Status name="Parado" color="#f1c40f" />
-                </SelectItem>
-                <SelectItem value="manutencao">
-                    <Status name="Manutenção" color="#e74c3c" />
+                <SelectItem 
+                    v-for="id, key in ui.states"
+                    :key="key"
+                    :value="`${key}`"
+                >
+                    <Status :id="`${key}`"/>
                 </SelectItem>
             </SelectContent>
         </Select>
@@ -28,6 +23,8 @@
     const props = defineProps<{
         onchange: (status: string) => void;
     }>();
+    
+    const { ui } = useApplicationStore();
 </script>
 
 <style scoped lang="scss">

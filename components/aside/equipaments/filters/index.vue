@@ -18,7 +18,7 @@
     }
 
     function handleStatusChange(status: string) {
-        useEquipaments.filterByStatus(status === "all" ? "" : status);
+        useEquipaments.filterByStatus(status);
     }
 </script>
 
