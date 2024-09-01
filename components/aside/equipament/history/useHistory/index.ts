@@ -8,17 +8,25 @@ export function filterStatesByDate(
     return states.filter((state) => {
         const positionDate = new Date(positions[index].date);
         const stateDate = new Date(state.date);
-        
-        if(stateDate.getTime() > positionDate.getTime()) {
-            return false;
-        }
-        if(index + 1 < positions.length) {
-            const nextPosition = new Date(positions[index + 1].date);
 
-            if(stateDate.getTime() <= nextPosition.getTime()) {
+        if (index > 0) {
+            if (stateDate.getTime() > positionDate.getTime()) {
                 return false;
             }
         }
+
+        let nextPositionDate: Date;
+
+        if (positions[index + 1]) {
+            nextPositionDate = new Date(positions[index + 1].date);
+        } else {
+            nextPositionDate = new Date(positions[index].date);
+        }
+
+        if (stateDate.getTime() <= nextPositionDate.getTime()) {
+            return false;
+        }
+
         return true;
     });
 }
@@ -30,7 +38,6 @@ export function bruteStateHistory(
     return positions.map((position, index) => {
         const positionDate = new Date(position.date);
         const filteredStates = filterStatesByDate(states, positions, index);
-        
         return {
             date: positionDate,
             position: {

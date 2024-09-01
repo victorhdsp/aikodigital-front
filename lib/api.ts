@@ -50,7 +50,8 @@ export async function getEquipamentList(): Promise<EquipamentSimple[]> {
         })[0];
         const lastPositionDate = new Date(lastPosition.date);
 
-        const lastUpdateDate = lastPositionDate > lastStateDate ? lastPositionDate : lastStateDate;
+        const lastUpdateDate = lastPositionDate.getDate() > lastStateDate.getDate() ? 
+                                lastPositionDate : lastStateDate;
         
         equipaments.push({
             id: data.id,
