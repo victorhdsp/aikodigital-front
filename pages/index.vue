@@ -1,9 +1,6 @@
 <template>
     <Layout>
-        <Map
-            :c-ref="map"
-            class="map"
-        >
+        <Map class="map">
             <Marker 
                 v-for="mark in marks"
                 :id="mark.id"
@@ -12,6 +9,7 @@
                 :lon="mark.lon"
             >
                 <Popup v-bind="mark" />
+                <Effect />
             </Marker>
         </Map>
         <Aside class="aside">
@@ -30,6 +28,7 @@
     import Aside from '@/components/common/aside/index.vue';
     import Popup from '~/components/map/popup/equipaments/index.vue';
     import type { MarkProps } from '~/components/map/popup/equipaments/type';
+    import Effect from '~/components/map/effect/equipaments/index.vue';
 
     const map = useMapStore();
     const equipaments = useEquipamentsStore();
