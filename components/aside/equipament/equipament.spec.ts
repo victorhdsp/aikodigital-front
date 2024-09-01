@@ -3,6 +3,7 @@ import { mount } from "@vue/test-utils";
 import { createTestingPinia, type TestingPinia } from "@pinia/testing";
 import { mockEquipamentData } from "@/tests/__mock__/equipament.js"
 import Equipament from "./index.vue";
+import { mockStateData } from "~/tests/__mock__/states";
 
 describe("components/aside/equipament", () => {
   let pinia:TestingPinia;
@@ -12,6 +13,9 @@ describe("components/aside/equipament", () => {
     });
     const equipamentStore = useEquipamentStore();
     equipamentStore.item = mockEquipamentData;
+
+    const { ui } = useApplicationStore();
+    ui.states = mockStateData;
   });
   
   test("renders correctly", async () => {
