@@ -24,6 +24,7 @@ export const useEquipamentStore = defineStore("equipament", () => {
             item.value.stateHistory, 
             item.value.positionHistory
         );
+        
         stateHistory.value = baseStateHistory.value;
         return item.value;
     }
@@ -33,21 +34,22 @@ export const useEquipamentStore = defineStore("equipament", () => {
         filterList();
     }
     function filterByStatus (status: string) {
-        filters.value.status = treatment(status);
+        filters.value.status = status;
         filterList();
     }
 
     function filterList () {
-        const { search, status } = filters.value;
+        const filter = filters.value;
         const filteredStatus = baseStateHistory.value?.map((item) => {
             const states = item.states.filter((state) => {
-                return treatment(state.name).includes(status);
+                if (filter.status === "all") return true;
+                return state.id === filter.status;
             });
             return { ...item, states };
         }).filter((item) => item.states.length > 0);
         
         const filteredSearch = filteredStatus?.filter((item) => {
-            if (treatment(item.date.toLocaleString()).includes(search)) return true;
+            if (treatment(item.date.toLocaleString()).includes(filter.search)) return true;
             return false;
         });
         

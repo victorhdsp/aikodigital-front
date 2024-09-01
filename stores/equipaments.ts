@@ -31,14 +31,15 @@ export const useEquipamentsStore = defineStore("equipaments", () => {
     }
 
     function filterList () {
-        const { search, status } = filters.value;
+        const filter = filters.value;
         const filteredStatus = baseList.value.filter((equipament) => {
-            return status ? treatment(equipament.state.name) === status : true;
+            if (filter.status === "all") return true;
+            return filter.status ? equipament.state === filter.status : true;
         });
         const filteredSearch = filteredStatus.filter((equipament) => {
-            if (treatment(equipament.name).includes(search)) return true;
-            if (treatment(equipament.vehicle.name).includes(search)) return true;
-            if (treatment(equipament.lastUpdate).includes(search)) return true;
+            if (treatment(equipament.name).includes(filter.search)) return true;
+            if (treatment(equipament.vehicle.name).includes(filter.search)) return true;
+            if (treatment(equipament.lastUpdateDate).includes(filter.search)) return true;
             return false;
         });
 
