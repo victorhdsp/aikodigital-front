@@ -22,7 +22,7 @@
     const { productivity } = getProductivity(props);
     const { profit, cost } = getProfitByEquipament(props);
     
-    const price = (profit - cost).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    const price = (profit + cost).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
 </script>
 
 <style scoped lang="scss">

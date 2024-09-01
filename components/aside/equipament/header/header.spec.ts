@@ -11,7 +11,7 @@ describe("components/aside/equipament/header", () => {
     const status = "Manutenção, 2/1/2021, 12:00:00 AM";
     const vehicle = "Veículo: Caminhão de carga";
     const productivity = "Produtividade geral: 50%";
-    const profit = "Lucro: R$ 200 | Custo: R$ -40";
+    const profit = "Lucro: R$ 160,00";
 
     // expect(wrapper.html()).toMatchSnapshot();
     expect(wrapper.text()).toContain(equipament);
