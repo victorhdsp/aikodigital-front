@@ -24,6 +24,13 @@ export const mockData: EquipamentComplete = {
             }
         },
         {
+            date: "2021-02-01T05:00:00.000Z",
+            state: {
+                color: "#2ecc71",
+                name: "Operando"
+            }
+        },
+        {
             date: "2021-02-01T07:00:00.000Z",
             state: {
                 color: "#f1c40f",
